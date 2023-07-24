@@ -120,14 +120,9 @@ This will:
 
 ### Stacking PRs on GitHub
 
-WIP
-
-There are a couple of limitations
-1. `git-stack` does not support creating PRs. We can work around this by using the `git pr` command which is a wrapper around the `gh pr` command.
-2. We currently don't have a way to create a PR for every branch in the stack with a single command.
-3. We current don't have a way to update the PR graph comment with a single command for every branch in the stack. See below for a way to generate the comment for a single branch, but only for direct descendents.
-
 The command below will create a PR for the current branch and set the base branch to the parent branch. This is useful for creating a PR for each branch in the stack.
+
+You can run this command more than once. If a PR already exists for the current branch, it will be updated using `git fpush`. It will also automatically run `git prcomment` to update the PR description with the current stack.
 
 `git spr`
 
@@ -136,8 +131,6 @@ This is a wrapper around `git pr create --base $(git parent)` or `gh pr create -
 If you want to pass custom parameters like `--draft` or `--title` you can do so by using `git pr` or `gh pr` directly. `git pr` is just a wrapper around `gh pr` for convenience sake.
 
 #### Automatic comment
-
-WIP
 
 Let's say you've opened a few PRs (manually or otherwise). We can run a script to automatically comment on each PR with the direct parent and direct descendents of the PR. This is useful for tracking the stack of PRs.
 
