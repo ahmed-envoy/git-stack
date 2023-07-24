@@ -9,7 +9,7 @@ declare -A descendants
 function printDescendants() {
     for i v in "${(@kv)descendants}"; do
         echo "branch: $i"
-        echo "direct-descendants: $v"
+        echo "immediate descendants: $v"
         echo
     done
     return 0
@@ -34,7 +34,7 @@ function getDescendants() {
 
 getDescendants $CURRENT_BRANCH
 
-# for each descendant of CURRENT_BRANCH, get its descendants and update descendants[CURRENT_BRANCH] to only include direct descendants
+# for each descendant of CURRENT_BRANCH, get its descendants and update descendants[CURRENT_BRANCH] to only include immediate descendants
 for dbranch in ${descendants[$CURRENT_BRANCH]}; do
    # Split the space-separated dbranch into an array
    IFS=" " read -rA dbranch_array <<< "$dbranch"
@@ -46,7 +46,7 @@ for dbranch in ${descendants[$CURRENT_BRANCH]}; do
    done
 done
 
-# for each key in descendants, we want to remove branches in the value list which are not direct descendants of key
+# for each key in descendants, we want to remove branches in the value list which are not immediate descendants of key
 for i v in "${(@kv)descendants}"; do
     local key="$i"
     IFS=" " read -rA value <<< "$v"
@@ -55,7 +55,7 @@ for i v in "${(@kv)descendants}"; do
     # Iterate over the value list
     for branch in "${value[@]}"; do
         descendants_of_branch=${descendants[$branch]}
-        # if there are descendants of branch, then each of those descendants are not direct descendants of key
+        # if there are descendants of branch, then each of those descendants are not immediate descendants of key
         # for each descendant of branch, remove it from direct_descendants
         if [ -n "$descendants_of_branch" ]; then
             IFS=" " read -rA dob <<< "$descendants_of_branch"
@@ -66,9 +66,9 @@ for i v in "${(@kv)descendants}"; do
         fi
     done
 
-    # Update the value list with the direct descendants
+    # Update the value list with the immediate descendants
     descendants[$key]=${direct_descendants}
 done
 
-# print direct descendants of CURRENT_BRANCH
+# print immediate descendants of CURRENT_BRANCH
 echo ${descendants[$CURRENT_BRANCH]}

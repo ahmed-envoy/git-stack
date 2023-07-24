@@ -62,7 +62,7 @@ echo "${tab}* **PR #${CURRENT_PR_NUMBER}** 👈" >>$prbodyfile
 # append two spaces to the tab
 tab="${tab}  "
 
-# for each direct descendant, get the PR number and output it to the PR body file
+# for each immediate descendant, get the PR number and output it to the PR body file
 
 echo "debug: DIRECT_DESCENDANTS: $DIRECT_DESCENDANTS"
 IFS=" " read -rA dob <<<"$DIRECT_DESCENDANTS"
