@@ -132,7 +132,7 @@ If you want to pass custom parameters like `--draft` or `--title` you can do so 
 
 #### Automatic comment
 
-Let's say you've opened a few PRs (manually or otherwise). We can run a script to automatically comment on each PR with the direct parent and direct descendents of the PR. This is useful for tracking the stack of PRs.
+Let's say you've opened a few PRs (manually or otherwise). We can run a script to automatically comment on each PR with the direct parent and immediate descendants of the PR. This is useful for tracking the stack of PRs.
 
 `git prcomment` will do this automatically. The comment template looks like this:
 
@@ -141,7 +141,7 @@ Current dependencies on/for this PR:
 
 * **PR #<parent_PR_number>
   * **PR #<current_PR_number> 👈
-    * **PR #<direct_descendant_PR_number>
-    * **PR #<direct_descendant_PR_number>
-    * **PR #<direct_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
 ```

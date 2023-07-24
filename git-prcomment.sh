@@ -2,7 +2,7 @@
 
 PARENT_BRANCH=$(git parent)
 CURRENT_BRANCH=$(git current)
-DIRECT_DESCENDANTS=$(git ctx) # space separated list of branches
+immediate_descendantS=$(git ctx) # space separated list of branches
 
 # if gh is not installed exit 1
 if ! command -v gh &>/dev/null; then
@@ -20,9 +20,9 @@ Current dependencies on/for this PR:
 
 * **PR #<parent_PR_number>
   * **PR #<current_PR_number> 👈
-    * **PR #<direct_descendant_PR_number>
-    * **PR #<direct_descendant_PR_number>
-    * **PR #<direct_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
+    * **PR #<immediate_descendant_PR_number>
 '
 
 echo "Current dependencies on/for this PR:" >>$prbodyfile
@@ -64,8 +64,8 @@ tab="${tab}  "
 
 # for each immediate descendant, get the PR number and output it to the PR body file
 
-echo "debug: DIRECT_DESCENDANTS: $DIRECT_DESCENDANTS"
-IFS=" " read -rA dob <<<"$DIRECT_DESCENDANTS"
+echo "debug: immediate_descendantS: $immediate_descendantS"
+IFS=" " read -rA dob <<<"$immediate_descendantS"
 for descendant in "${dob[@]}"; do
     if [ -z "$descendant" ]; then
         continue

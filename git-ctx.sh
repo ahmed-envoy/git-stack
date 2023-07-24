@@ -50,24 +50,24 @@ done
 for i v in "${(@kv)descendants}"; do
     local key="$i"
     IFS=" " read -rA value <<< "$v"
-    local -a direct_descendants=(${value[@]})
+    local -a immediate_descendants=(${value[@]})
 
     # Iterate over the value list
     for branch in "${value[@]}"; do
         descendants_of_branch=${descendants[$branch]}
         # if there are descendants of branch, then each of those descendants are not immediate descendants of key
-        # for each descendant of branch, remove it from direct_descendants
+        # for each descendant of branch, remove it from immediate_descendants
         if [ -n "$descendants_of_branch" ]; then
             IFS=" " read -rA dob <<< "$descendants_of_branch"
             for descendant in "${dob[@]}"; do
                 # echo "descendant: $descendant removed from $key"
-                direct_descendants=(${direct_descendants[@]/$descendant})
+                immediate_descendants=(${immediate_descendants[@]/$descendant})
             done
         fi
     done
 
     # Update the value list with the immediate descendants
-    descendants[$key]=${direct_descendants}
+    descendants[$key]=${immediate_descendants}
 done
 
 # print immediate descendants of CURRENT_BRANCH
