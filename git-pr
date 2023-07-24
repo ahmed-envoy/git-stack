@@ -1,0 +1,5 @@
+#! /usr/bin/env zsh
+# This script is a wrapper for `gh pr`
+ARG=$(git rev-parse --sq-quote "$@")
+CMD="gh pr $ARG"
+eval "$CMD"

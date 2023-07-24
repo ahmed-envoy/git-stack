@@ -1,0 +1,4 @@
+#! /usr/bin/env zsh
+ARG=$(git rev-parse --sq-quote "$@")
+CMD="git-spush.sh $ARG"
+eval "$CMD"

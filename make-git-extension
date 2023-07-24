@@ -1,0 +1,28 @@
+#! /usr/bin/env zsh
+
+NAME=${1}
+FILENAME="./$NAME"
+SHELL_FILENAME="./$FILENAME.sh"
+
+if [ -z "$NAME" ]; then
+    echo "Usage: $0 <name>"
+    exit 1
+fi
+
+touch $FILENAME
+chmod +x $FILENAME
+touch $SHELL_FILENAME
+chmod +x $SHELL_FILENAME
+
+cat > $FILENAME <<- EOM
+#! /usr/bin/env zsh
+
+ARG=\$(git rev-parse --sq-quote "\$@")
+CMD="$NAME.sh \$ARG"
+eval "\$CMD"
+EOM
+
+
+cat > $SHELL_FILENAME <<- EOM
+#! /usr/bin/env zsh
+EOM

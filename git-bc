@@ -1,0 +1,5 @@
+#! /usr/bin/env zsh
+
+ARG=$(git rev-parse --sq-quote "$@")
+CMD="git-bc.sh $ARG"
+eval "$CMD"
