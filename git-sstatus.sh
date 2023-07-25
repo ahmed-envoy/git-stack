@@ -18,5 +18,5 @@ fi
 
 local num=$(gh pr status --json 'number' --jq '.currentBranch.number')
 if [ -n "$num" ]; then
-    script -q /dev/null gh pr status | head -n7 
+    gh pr status | head -n7 
 fi
