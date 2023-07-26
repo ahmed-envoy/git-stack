@@ -12,7 +12,7 @@ This repo contains scripts to enable a stack-based workflow with git. This is ac
 ### Install
 
 ```
-git clone https://github.com/ahmed-envoy/git-stack.git
+git clone https://github.com/envoy/git-stack.git
 cd git-stack
 ./setup-git-stack.sh
 ```
