@@ -124,27 +124,13 @@ The command below will create a PR for each branch in the stack. This command ca
 
 `git submit`
 
-This command is a wrapper around `git stack run git srun git spr`.
-
-#### Creating a PR for the current branch
-
-The command below will create a PR for the current branch and set the base branch to the parent branch. This is useful for creating a PR for each branch in the stack.
-
-You can run this command more than once. If a PR already exists for the current branch, it will be updated using `git fpush`. It will also automatically run `git prcomment` to update the PR description with the current stack.
-
-`git spr`
-
-This is a wrapper around `git pr create --base $(git parent)` or `gh pr create --base $(git parent)`
-
-If you want to pass custom parameters like `--draft` or `--title` you can do so by using `git pr` or `gh pr` directly. `git pr` is just a wrapper around `gh pr` for convenience sake.
-
 #### Automatic comment
 
 Let's say you've opened a few PRs (manually or otherwise). We can run a script to automatically comment on each PR with the direct parent and immediate descendants of the PR. This is useful for tracking the stack of PRs.
 
 This command can be run multiple times. If a comment already exists, it will be updated.
 
-`git prcomment` will do this automatically. The comment template looks like this:
+`git submit` will do this automatically. The comment template looks like this:
 
 ```
 Current dependencies on/for this PR:
